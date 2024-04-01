@@ -23,18 +23,18 @@ Motivation
 ==========
 
 Motion Capture Systems (mocap systems, in short) are very important in 
-Robotics. They are critical when testing localization algorithms, commanding 
+Robotics. They are critical when testing localization algorithms and commanding 
 groups of indoor drones or AR applications, among many other applications.
 
-Typically, most of the proprietary control software are programs that calibrate,
-configure and manage the information obtained from their cameras. Most of vendors
+Typically, most proprietary control software programs calibrate,
+configure, and manage the information obtained from their cameras. Most vendors
 provide libraries for different applications with an SDK for connecting from any OS
-and receiving position data. ROS 2 mocap drivers use these SDK for prviding the mocap
-systems information to the nodes that requires it. ROS 2 already has many packages available 
+and receiving position data. ROS 2 mocap drivers use these SDKs to provide the mocap
+systems information to the nodes that require it. ROS 2 already has many packages available 
 with drivers for mocap systems.
 
-This REP defines the standards that should guide the development of mocap system 
-drivers, so that any user application can be developed independently of the mocap 
+This REP defines the standards that should guide the development of the mocap system 
+drivers so that any user application can be developed independently of the mocap 
 system used, benefiting the reusability of applications and the use of this type 
 of systems in ROS 2.
 
@@ -90,8 +90,8 @@ mocap_msgs/msg/RigidBody.msg
 ''''''''''''''''''''''''''''
 
 Most mocap systems can detect rigid bodies, which allows us to know their orientation in 
-space, in addition to their orientation. This message contains the array of markers which
-always follows the same order. 
+space, in addition to their orientation. This message contains the array of markers, which
+always follow the same order. 
 
 
 ::
@@ -126,11 +126,11 @@ All the rigid bodies detected in the same frame can be published in the same fra
 Coordinate Frames
 -----------------
 
-The recommended frame identifier is ``mocap``. Mocap system drivers can (optinally but recommened, set as a boolean parameter ``publish_tf``) publish 
-the TF that connects frame related to the mocap system with th other existing frames.
+The recommended frame identifier is ``mocap``. Mocap system drivers can (optionally but recommended, set as a boolean parameter ``publish_tf``) publish 
+the TF that connects frames related to the mocap system with the other existing frames.
 
-* If the mocap system is used to detect the position of an isolated robot, the ``mocap`` frame will be the parent frame of ``odom``. Mocap system 
-drivers can optinally publish the TF that connects both frames.
+* If the mocap system detects the position of an isolated robot, the ``mocap`` frame will be the parent frame of ``odom``. Mocap system 
+drivers can optionally publish the TF that connects both frames.
 
 .. raw:: html
 
@@ -143,7 +143,7 @@ drivers can optinally publish the TF that connects both frames.
     od --> bf
   </div>
 
-* If the mocap system is used to detect the position of an robot localized in a map, the ``mocap`` frame 
+* If the mocap system detects the position of a robot localized on a map, the ``mocap`` frame 
 will be the parent frame of ``map``.
 
 .. raw:: html
@@ -159,7 +159,7 @@ will be the parent frame of ``map``.
     od --> bf
   </div>
 
-* If more than one mocap systems coexist at the same time, there will be a parent frame ``mocap`` whose childrens are each mocap system 
+* If more than one mocap system coexists simultaneously, there will be a parent frame ``mocap`` whose children are each mocap system 
 and the other frames. For example:
 
 .. raw:: html
@@ -184,14 +184,14 @@ and the other frames. For example:
 Complementary specifications
 ----------------------------
 
-* All computers involved is the use of a mocap systems, included the computer that runs the software provided by the vendor, should be synchronized using ``ntp`` or any other more precise mechanism.
-* It is recommended to use LifeCycle Nodes to implement the mocap system drivers, in order to activate/deactivate the publication of mocap data.
+* All computers involved in mocap systems, including those that run the vendor's software, should be synchronized using ``ntp`` or any other more precise mechanism.
+* It is recommended that LifeCycle Nodes be used to implement the mocap system drivers to activate/deactivate the publication of mocap data.
 
 Rationale
 =========
 
-* **Redundant headers in ``mocap_msgs/msg/MarkerArray.msg`` and ``mocap_msgs/msg/RigidBodyArray.msg``**: Timestamps of header in ``*Array.msg`` messages can be diffents of their contents (markers or rigid bodies) for differenciate the capture time and the publication time.
-* **Frames of multiple mocap systems**: It is possible to use more than one mocap system. To relate the coordinate positions of the detections of each frame, one global ``mocap`` frame should be chosen (it can match to one of them). In this case, the TF publication that connect each mocap system wuth ``mocap`` frame should be mandatory, and the ``frame_id`` of the messages should be of the specific mocap system that produced the detection. 
+* **Redundant headers in ``mocap_msgs/msg/MarkerArray.msg`` and ``mocap_msgs/msg/RigidBodyArray.msg``**: Timestamps of headers in ``*Array.msg`` messages can be different to their contents (markers or rigid bodies) to differentiate the capture time and the publication time.
+* **Frames of multiple mocap systems**: It is possible to use more than one mocap system, and we should avoid repeating the same frames (for example, ``map`` or ``base_footprint``) in different branches in the same TF tree. To relate the coordinate positions of the detections of each frame, one global ``mocap`` frame should be chosen (it can match one of them). In this case, the TF publication that connects each mocap system with the ``mocap`` frame should be mandatory, and the ``frame_id`` of the messages should be of the specific mocap system that produced the detection.
 
 Reference Implementation
 ========================
