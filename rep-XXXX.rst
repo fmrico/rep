@@ -114,7 +114,7 @@ All the rigid bodies detected in the same frame can be published in the same fra
 
 ::
 
-  # This message contains the information for an array of mocap markers
+  # This message contains the information for an array of rigid bodies
  
   # Time of mocap data acquisition, and the coordinate frame ID
   std_msgs/Header header
