@@ -129,13 +129,12 @@ Coordinate Frames
 The recommended frame identifier is ``mocap``. Mocap system drivers can (optionally but recommended, set as a boolean parameter ``publish_tf``) publish 
 the TF that connects frames related to the mocap system with the other existing frames.
 
-* If the mocap system detects the position of an isolated robot, the ``mocap`` frame will be the parent frame of ``odom``. Mocap system 
-drivers can optionally publish the TF that connects both frames.
+* If the mocap system detects the position of an isolated robot, the ``mocap`` frame will be the parent frame of ``odom``. Mocap system drivers can optionally publish the TF that connects both frames.
 
 .. raw:: html
 
   <div class="mermaid">
-  graph LR
+  graph TD
     mo[mocap]
     od[odom]
     bf[base_footprint]
@@ -143,13 +142,12 @@ drivers can optionally publish the TF that connects both frames.
     od --> bf
   </div>
 
-* If the mocap system detects the position of a robot localized on a map, the ``mocap`` frame 
-will be the parent frame of ``map``.
+* If the mocap system detects the position of a robot localized on a map, the ``mocap`` frame will be the parent frame of ``map``.
 
 .. raw:: html
 
   <div class="mermaid">
-  graph LR
+  graph TD
     mo[mocap]
     ma[map]
     od[odom]
@@ -159,13 +157,12 @@ will be the parent frame of ``map``.
     od --> bf
   </div>
 
-* If more than one mocap system coexists simultaneously, there will be a parent frame ``mocap`` whose children are each mocap system 
-and the other frames. For example:
+* If more than one mocap system coexists simultaneously, there will be a parent frame ``mocap`` whose children are each mocap system and the other frames. For example:
 
 .. raw:: html
 
   <div class="mermaid">
-  graph LR
+  graph TD
     mo[mocap]
     moa[mocap_A]
     mob[mocap_B]
