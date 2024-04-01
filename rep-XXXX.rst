@@ -123,6 +123,12 @@ All the rigid bodies detected in the same frame can be published in the same fra
   mocap4r2_msgs/RigidBody[] rigid_bodies  # The array of rigid bodies detected
 
 
+Quality of Service
+------------------
+
+All the publishers should use ``SensorDataQoS().reliable()`` QoS.
+
+
 Coordinate Frames
 -----------------
 
