@@ -1,5 +1,4 @@
-REP: 888
-.. REP: XXXX
+REP: XXXX
 Title: Motion Capture Systems
 Author: Francisco Martín Rico <fmrico@gmail.com>
 Status: Active
