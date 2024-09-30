@@ -200,10 +200,7 @@ Rationale
 Reference Implementation
 ========================
 
-Implementations adhering to this REP, aimed at integrating Motion Capture Systems with ROS 2, are available through the `MOCAP4ROS2 Project GitHub organization <https://github.com/MOCAP4ROS2-Project>`_. These include various motion capture system drivers, along with ROS 2 message types such as `mocap_interfaces` for managing and publishing mocap data. One example is the `mocap_optitrack <https://github.com/MOCAP4ROS2-Project/mocap4ros2_optitrack>`_ package, which provides support for Optitrack systems in ROS 2.
-
-In addition, several tools and examples are provided to simplify development and testing across different motion capture systems. For detailed documentation and further information on the project, visit the official `MOCAP4ROS2 website <https://mocap4ros2-project.github.io/>`_.
-
+Implementations adhering to this REP, aimed at integrating Motion Capture Systems with ROS 2, are available through the `Mocap interfaces repository <https://github.com/MOCAP4ROS2-Project/mocap_interfaces>`_. These include the ROS 2 message type `mocap_interfaces` for managing and publishing mocap data.
 
 Terminology
 ===========
