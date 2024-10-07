@@ -1,6 +1,6 @@
 REP: XXX
 Title: Motion Capture Systems
-Author: Francisco Martín Rico
+Author: Francisco Martín Rico <fmrico@gmail.com>
 Status: Active
 Type: Draft
 Type: Standards Track
@@ -22,8 +22,8 @@ any aspect related to the use of Motion Capture Systems in ROS 2.
 Motivation
 ==========
 
-Motion Capture Systems (mocap systems, in short) are very important in 
-Robotics. They are critical when testing localization algorithms and commanding 
+Motion Capture Systems (mocap systems, in short) play a significant role in 
+the field of robotics. They are critical when testing localization algorithms and commanding 
 groups of indoor drones or AR applications, among many other applications.
 
 Typically, most proprietary control software programs calibrate,
@@ -46,8 +46,8 @@ Specification
 Interfaces
 ----------
 
-mocap_msgs/msg/Marker.msg
-'''''''''''''''''''''''''
+mocap_interfaces/msg/Marker.msg
+'''''''''''''''''''''''''''''''
 
 Most mocap systems use markers as the minimum detection unit, which are easily detectable 
 elements in space, typically a small reflective ball.
@@ -69,8 +69,8 @@ elements in space, typically a small reflective ball.
   geometry_msgs/Point translation  # The marker position
 
 
-mocap_msgs/msg/MarkerArray.msg
-''''''''''''''''''''''''''''''
+mocap_interfaces/msg/MarkerArray.msg
+''''''''''''''''''''''''''''''''''''
 
 Markers are not published one by one but in a message that contains all the markers in a 
 detection, numbered with a consecutive counter that increments in every detection.
@@ -83,11 +83,11 @@ detection, numbered with a consecutive counter that increments in every detectio
   std_msgs/Header header
 
   uint32 seq                       # A continous detection number
-  mocap_msgs/Marker[] markers      # The array of markers
+  mocap_interfaces/Marker[] markers      # The array of markers
 
 
-mocap_msgs/msg/RigidBody.msg
-''''''''''''''''''''''''''''
+mocap_interfaces/msg/RigidBody.msg
+''''''''''''''''''''''''''''''''''
 
 Most mocap systems can detect rigid bodies, which allows us to know their orientation in 
 space, in addition to their orientation. This message contains the array of markers, which
@@ -102,13 +102,13 @@ always follow the same order.
   std_msgs/Header header
 
   string rigid_body_name           # An id of the rigid body assigned by the mocap system
-  mocap_msgs/Marker[] markers      # The ordered array of markers
+  mocap_interfaces/Marker[] markers      # The ordered array of markers
   geometry_msgs/Pose pose          # The Pose (positon and oriantation) of the center of the
                                    # rigid body
 
 
-mocap_msgs/msg/RigidBodyArray.msg
-'''''''''''''''''''''''''''''''''
+mocap_interfaces/msg/RigidBodyArray.msg
+'''''''''''''''''''''''''''''''''''''''
 
 All the rigid bodies detected in the same frame can be published in the same frame number.
 
@@ -193,13 +193,14 @@ Complementary specifications
 Rationale
 =========
 
-* **Redundant headers in ``mocap_msgs/msg/MarkerArray.msg`` and ``mocap_msgs/msg/RigidBodyArray.msg``**: Timestamps of headers in ``*Array.msg`` messages can be different to their contents (markers or rigid bodies) to differentiate the capture time and the publication time.
+* **Redundant headers in ``mocap_interfaces/msg/MarkerArray.msg`` and ``mocap_interfaces/msg/RigidBodyArray.msg``**: Timestamps of headers in ``*Array.msg`` messages can be different to their contents (markers or rigid bodies) to differentiate the capture time and the publication time.
 * **Frames of multiple mocap systems**: It is possible to use more than one mocap system, and we should avoid repeating the same frames (for example, ``map`` or ``base_footprint``) in different branches in the same TF tree. To relate the coordinate positions of the detections of each frame, one global ``mocap`` frame should be chosen (it can match one of them). In this case, the TF publication that connects each mocap system with the ``mocap`` frame should be mandatory, and the ``frame_id`` of the messages should be of the specific mocap system that produced the detection.
 
 Reference Implementation
 ========================
 
-To be provided
+Implementations adhering to this REP, aimed at integrating Motion Capture Systems with ROS 2, are available through the `Mocap interfaces repository <https://github.com/MOCAP4ROS2-Project/mocap_interfaces>`_.
+These include the ROS 2 message type `mocap_interfaces` for managing and publishing mocap data.
 
 Terminology
 ===========
